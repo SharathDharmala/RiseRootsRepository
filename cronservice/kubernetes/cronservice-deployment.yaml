@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cronservice
+  labels:
+    app: cronservice
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: cronservice
+  template:
+    metadata:
+      labels:
+        app: cronservice
+    spec:
+      containers:
+        - name: cronservice
+          image: cronservice:latest  # Ensure this matches your Docker image
+          ports:
+            - containerPort: 8080

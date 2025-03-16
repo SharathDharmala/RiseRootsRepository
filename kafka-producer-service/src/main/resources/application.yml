@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: kafka-producer-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    properties:
+      schema.registry.url: http://localhost:9092
+      acks: all
+      partitioner.class: org.apache.kafka.clients.producer.internals.DefaultPartitioner
+      retries: 3
+      batch.size: 16384
+      linger.ms: 1
+  datasource:
+    url: jdbc:postgresql://localhost:5432/riseroots
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      idle-timeout: 30000
+      connection-timeout: 30000
+      pool-name: HikariCP
+      leak-detection-threshold: 2000
+      maximum-pool-size: 5
+      minimum-idle: 1
+      auto-commit: false
+      
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
+  instance:
+    prefer-ip-address: true
+
+server:
+  port: 9093
+
+logging:
+  level:
+    root: INFO
+    com.riseroots: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/kafkaproducer.log

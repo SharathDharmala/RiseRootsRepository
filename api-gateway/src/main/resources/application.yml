@@ -1,0 +1,87 @@
+server:
+  port: 4321  # Port for API Gateway
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # Enables service discovery for API Gateway
+
+      routes:
+        # Route for User Management Service
+        - id: user-management
+          uri: lb://user-management  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/user/**  # Match requests for /user path
+        
+        # Route for Customer Management Service
+        - id: customer-management
+          uri: lb://customer-management  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/customer/**  # Match requests for /customer path
+        
+        # Route for Cron Service
+        - id: cronservice
+          uri: lb://cronservice  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/cron/**  # Match requests for /cron path
+
+        # Route for Kafka producer Service
+        - id: kafka-producer-service
+          uri: lb://kafka-producer-service  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/kafka-producer/**  # Match requests for /kafka-producer path
+            
+        # Route for kafka-consumer-service-1
+        - id: kafka-consumer-service-1
+          uri: lb://kafka-consumer-service-1  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/kafka-consumer-service-1/**  # Match requests for /kafka-consumer path
+            
+        # Route for kafka-consumer-service-2
+        - id: kafka-consumer-service-2
+          uri: lb://kafka-consumer-service-2  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/kafka-consumer-service-2/**  # Match requests for /kafka-consumer path
+            
+        # Route for kafka-broker-service
+        - id: kafka-broker-service
+          uri: lb://kafka-broker-service  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/kafka-broker-service/**  # Match requests for /kafka-consumer path
+            
+        # Route for kafka-schema-registry-service
+        - id: kafka-schema-registry-service
+          uri: lb://kafka-schema-registry-service  # Load-balanced service URL using Eureka service name
+          predicates:
+            - Path=/kkafka-schema-registry-service/**  # Match requests for /kafka-consumer path
+            
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/  # Eureka server URL for service discovery
+     #defaultZone: http://eureka-server:8080/eureka/
+      
+logging:
+  level:
+    root: INFO
+    com.riseroots: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/apigateway.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "gateway,health,info"
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: always

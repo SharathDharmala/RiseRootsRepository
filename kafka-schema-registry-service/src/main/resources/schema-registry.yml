@@ -1,0 +1,12 @@
+kafka:
+  bootstrap-servers: localhost:9092
+  schema-registry:
+    url: http://localhost:8081  # Schema registry URL
+    kafkastore:
+      connection-url: jdbc:postgresql://localhost:5432/riseroots
+      user: postgres
+      password: postgres
+      db-type: postgres  # This is REQUIRED to store schemas in DB
+    topic: _schema
+  properties:
+    schema.registry.url: http://localhost:8081

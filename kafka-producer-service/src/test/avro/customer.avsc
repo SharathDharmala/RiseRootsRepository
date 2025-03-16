@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "Customer",
+  "namespace": "com.example.avro",
+  "fields": [
+    { "name": "id", "type": "int" },
+    { "name": "customername", "type": "string" },
+    { "name": "mobilenumber", "type": "string" },
+    { "name": "socialsecuritynumber", "type": "string" },
+    { "name": "taxnumber", "type": "string" }
+  ]
+}

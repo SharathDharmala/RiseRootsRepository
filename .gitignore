@@ -1,0 +1,36 @@
+# Ignore log files
+*.log
+
+# Ignore compiled class files
+*.class
+
+# Ignore IDE/project-specific files
+.idea/
+.vscode/
+
+# Ignore build directories (if using Maven/Gradle)
+target/
+build/
+
+# Ignore dependency directories (for example, Node modules)
+node_modules/
+
+# Ignore environment configuration files
+.env
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Eclipse project files
+.metadata/
+*.log
+*.classpath
+*.project
+.settings/
+
+# Ignore Eclipse-specific temp files
+*.tmp
+*.bak
+
+*.gz

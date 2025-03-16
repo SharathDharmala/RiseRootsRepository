@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: kafka-schema-registry-service
+  main:
+    allow-circular-references: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/riseroots
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      idle-timeout: 30000
+      connection-timeout: 30000
+      pool-name: HikariCP
+      leak-detection-threshold: 15000  # Updated value
+      maximum-pool-size: 5
+      minimum-idle: 1
+      auto-commit: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        connection:
+          autocommit: false
+
+server:
+  port: 9090
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    root: INFO
+    com.riseroots: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/kafka-schemaregistry.log

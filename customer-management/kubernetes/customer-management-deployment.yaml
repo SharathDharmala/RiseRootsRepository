@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-management
+  labels:
+    app: customer-management
+spec:
+  replicas: 1  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: customer-management
+  template:
+    metadata:
+      labels:
+        app: customer-management
+    spec:
+      containers:
+        - name: customer-management
+          image: customer-management:latest  # Ensure this matches your Docker image
+          ports:
+            - containerPort: 8080

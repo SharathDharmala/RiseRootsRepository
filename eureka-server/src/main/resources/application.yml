@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: eureka-server
+
+server:
+  port: 8762
+
+eureka:
+  server:
+    enableSelfPreservation: false
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+management:
+  enabled: false
+  context-path: /actuator
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
+logging:
+  level:
+    root: INFO
+    com.riseroots: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/eurekaserver.log

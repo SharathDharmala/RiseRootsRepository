@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cronservice
+spec:
+  type: NodePort  # You can also use LoadBalancer or ClusterIP depending on access needs
+  selector:
+    app: cronservice
+  ports:
+    - port: 8080           # The port that the service will expose
+      targetPort: 8080      # The container's port that is being forwarded
+      #nodePort: 30001       # As this service no need to expose, nodeport need not to be set.. all the requests will be routed through apigateway->eurekaserver->cronservice
+

@@ -1,0 +1,55 @@
+server:
+  port: 8072
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/  # URL of your Eureka server
+
+spring:
+  application:
+    name: customer-management-service  # The name this service will use in Eureka
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/riseroots
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      connection-timeout: 30000
+      pool-name: HikariCP
+
+  jpa:
+    hibernate:
+      ddl-auto: update    # options: none, validate, update, create, create-drop
+    show-sql: true        # Display SQL queries in the console (optional)
+    properties:
+      hibernate:
+        format_sql: true  # Format SQL queries (optional)
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+# CORS Configuration
+  mvc:
+    cors:
+      allowed-origins: "http://localhost:3000"
+      allowed-methods: "GET, POST, PUT, DELETE, OPTIONS"
+      allowed-headers: "Content-Type, Authorization"
+      allow-credentials: true
+logging:
+  level:
+    root: INFO
+    com.jacoto: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/customermanagement.log
+
+

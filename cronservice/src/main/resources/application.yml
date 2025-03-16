@@ -1,0 +1,57 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/  # Eureka server URL
+
+spring:
+  application:
+    name: cronservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/riseroots
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+      connection-timeout: 30000
+      pool-name: HikariCP
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  data:
+    jpa:
+      repositories:
+        enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.riseroots: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/cronservice.log
+
+cronservice:
+  report:
+    misFile: mis_report.csv
+    duplicateFile: duplicates.txt
+    backupPrefix: mis_report_backup_
+    csv: .csv
+    timestamppattern: yyyy-MM-dd_HH-mm-ss
+
+cron:
+  threadpool:
+    size: 4
