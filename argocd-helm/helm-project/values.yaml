@@ -1,0 +1,16 @@
+cronservice:
+  replicaCount: 2
+  image:
+    repository: myrepo/cronservice
+    tag: latest
+  service:
+    port: 8080
+
+#Below config can be enabled for other specific microservice
+#customerservice:
+#  replicaCount: 1
+#  image:
+#    repository: myrepo/orderservice
+#    tag: latest
+#  service:
+#    port: 9090

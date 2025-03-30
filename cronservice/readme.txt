@@ -1,3 +1,7 @@
+##For AWS RDS we need below Policies
+AmazonRDSFullAccess
+AmazonRDSDataFullAccess
+
 docker build -t eureka-server .
 
 \kubernetes>

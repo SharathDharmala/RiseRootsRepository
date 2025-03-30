@@ -12,10 +12,8 @@ public class KafkaConsumerService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
 	
-	@KafkaListener(topics = "customer-events", groupId = "consumer-group-1")
+	@KafkaListener(topics = "customer-events", groupId = "consumer-group-1", concurrency = "3")
 	public void consume(CustomerEvent customerEvent) {
-		// Business Logic for Consumer 1
-		logger.debug("Consumer 1 consumed: " + customerEvent.toString());
-		// Implement business logic (e.g., save data to a database)
+	    logger.debug("Consumer 1 consumed: " + customerEvent.toString());
 	}
 }

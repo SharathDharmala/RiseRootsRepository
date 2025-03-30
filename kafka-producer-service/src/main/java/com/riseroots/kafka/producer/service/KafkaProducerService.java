@@ -19,7 +19,12 @@ public class KafkaProducerService {
     
     public void sendMessage(com.riseroots.kafka.producer.CustomerEvent customerAvro) {
         int partition = customerAvro.getId() % 3; // Example: Using ID to assign partition
+        try {
         kafkaTemplate.send("customer-topic", partition, String.valueOf(customerAvro.getId()), customerAvro);
+        }catch(Exception e) {
+        	e.printStackTrace();
+        	logger.error("ERROR IN SENDING EVENT");
+        }
         logger.debug("Sent Customer Event: " + customerAvro + " to Partition: " + partition);
     }
 }

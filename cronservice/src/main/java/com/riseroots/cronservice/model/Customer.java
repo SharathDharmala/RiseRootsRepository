@@ -27,4 +27,6 @@ public class Customer {
     private String category;
     private String occupation;
     private String mobileNumber;
+    private String socialSecurityNumber;
+    private String taxNumber;
 }

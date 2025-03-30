@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-cronservice
+spec:
+  replicas: {{ .Values.cronservice.replicaCount }}
+  selector:
+    matchLabels:
+      app: cronservice
+  template:
+    metadata:
+      labels:
+        app: cronservice
+    spec:
+      containers:
+        - name: cronservice
+          image: "{{ .Values.cronservice.image.repository }}:{{ .Values.cronservice.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.cronservice.service.port }}

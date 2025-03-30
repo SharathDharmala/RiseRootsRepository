@@ -1,0 +1,9 @@
+subnets = ["subnet-054095bb0fc85b0fd", "subnet-0314c30fb0a6b6cb0"]
+security_groups = ["sg-0bccf62b5cfd66b4b"]
+ecs_cluster_name = "riseroots_cluster"
+ecs_service_name = "riseroots_fargate-service"
+task_cpu = "256"
+task_memory = "512"
+container_image = "nginx:latest"
+container_port = 80
+desired_count = 0

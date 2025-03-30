@@ -2,12 +2,12 @@ spring:
   application:
     name: kafka-producer-service
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:8082
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
     properties:
-      schema.registry.url: http://localhost:9092
+      schema.registry.url: http://localhost:8081  # Corrected URL for the Schema Registry
       acks: all
       partitioner.class: org.apache.kafka.clients.producer.internals.DefaultPartitioner
       retries: 3

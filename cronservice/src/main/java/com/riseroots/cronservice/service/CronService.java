@@ -9,15 +9,19 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -51,7 +55,7 @@ public class CronService {
 
 	@Value("${cronservice.report.timestamppattern}")
 	private String timeStampPattern;
-	
+
 	@Scheduled(cron = "0 0/30 * * * ?")
 	public void generateMisReport() {
 		List<Customer> customers = customerRepository.findAll();
@@ -79,7 +83,6 @@ public class CronService {
 							logger.error("Error while writing customer data to the report: ", e);
 						}
 					});
-
 			logger.info("MIS Report generated: " + reportPath.toAbsolutePath());
 		} catch (IOException e) {
 			logger.error("Error while generating MIS report: ", e);
@@ -91,9 +94,7 @@ public class CronService {
 		List<Customer> customers = customerRepository.findAll();
 		ExecutorService executor = Executors.newFixedThreadPool(threadPoolSize);
 		AtomicBoolean fileWritten = new AtomicBoolean(false);
-
 		Set<String> existingDuplicates = readExistingDuplicates();
-
 		customers.parallelStream()
 				.filter(customer -> customerRepository.countByMobileNumberAndCustomerName(customer.getMobileNumber(),
 						customer.getCustomerName()) > 1)
@@ -126,4 +127,51 @@ public class CronService {
 		}
 		return Set.of();
 	}
+
+	@EventListener(ApplicationReadyEvent.class) 
+	public void runOnceAfterStartup() { 
+	    System.out.println("Task executed once after startup."); 
+	    
+	    List<Customer> customerList = customerRepository.findAll(); 
+	    
+	    System.out.println("Customer Object>>> " + customerList.stream().collect(Collectors.toList())); 
+	    
+	    Map<String, List<Customer>> custMap = customerList.stream().collect(Collector.groupingBy((Customer.getCategorry)))
+	    
+	    Map<String, List<Customer>> custMap = customerList.stream().collect(Collectors.groupingBy(Customer::getCategory)); 
+	    custMap.forEach((category, customers) -> { 
+	        System.out.println(category);
+	        for (Customer customer : customers) { 
+	            System.out.println(customer);
+	        } 
+	    });
+
+	    Map<String, List<Customer>> customersByCategory = customerList.stream()
+	        .collect(Collectors.groupingBy(Customer::getCategory)); 
+	    
+	    customersByCategory.forEach((category, customers) -> { 
+	        System.out.println("Category: " + category); 
+	        customers.forEach(System.out::println); 
+	    });
+
+	    Map<String, Long> customerMapCount = customerList.stream()
+	        .collect(Collectors.groupingBy(Customer::getOccupation, Collectors.counting())); 
+	    
+	    customerMapCount.forEach((occupation, count) -> { 
+	        System.out.println(occupation + "-->" + count); 
+	    });
+
+	    List<String> customerDataList = customerList.stream()
+	        .map(Customer::getCustomerName)
+	        .collect(Collectors.toList()); 
+	    
+	    customerDataList.forEach(System.out::println);
+
+	    List<Customer> customersStartingWithA = customerList.stream()
+	        .filter(c -> c.getCustomerName().startsWith("A"))
+	        .collect(Collectors.toList());
+
+	    customersStartingWithA.forEach(System.out::println); 
+	}
+
 }

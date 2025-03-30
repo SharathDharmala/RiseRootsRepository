@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cronservice
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/SharathDharmala/CustomerManagementSystem.git
+    path: cronservice  # Path inside the Git repo where Helm chart is stored
+    targetRevision: main  # Branch in Git
+    helm:
+      valueFiles:
+        - values.yaml  # Specifies Helm values file
+  syncPolicy:
+    automated:
+      prune: true  # Remove old resources if they are deleted in Git
+      selfHeal: true  # Fix changes if they drift from the Git state

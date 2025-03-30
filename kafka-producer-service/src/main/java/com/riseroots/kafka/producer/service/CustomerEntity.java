@@ -14,15 +14,21 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "customername")
+    @Column(name = "customer_name") // Fix column name
     private String customerName;
 
-    @Column(name = "mobilenumber")
+    @Column(name = "mobile_number") // Fix column name
     private String mobileNumber;
 
-    @Column(name = "socialsecuritynumber")
+    @Column(name = "social_security_number") // Fix column name
     private String socialSecurityNumber;
 
-    @Column(name = "taxnumber")
+    @Column(name = "tax_number") // Fix column name
     private String taxNumber;
+
+    @Column(name = "category") // Fix column name
+    private String category;
+
+    @Column(name = "occupation") // Fix column name
+    private String occupation;
 }

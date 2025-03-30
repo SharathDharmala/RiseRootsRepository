@@ -10,9 +10,12 @@ spring:
   application:
     name: cronservice
   datasource:
-    url: jdbc:postgresql://localhost:5432/riseroots
-    username: postgres
-    password: postgres
+    #url: jdbc:postgresql://localhost:5432/riseroots
+    #username: postgres
+    #password: postgres
+    url: jdbc:postgresql://riserootsdb.c7m6e8scy7ek.eu-central-1.rds.amazonaws.com:5432/postgres
+    username: riseroots
+    password: riseroots
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 5

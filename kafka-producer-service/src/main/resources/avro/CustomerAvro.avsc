@@ -5,6 +5,8 @@
   "fields": [
     { "name": "id", "type": "int" },
     { "name": "customername", "type": "string" },
+    { "name": "category", "type": "string", "default": "SelfEmployed" },
+    { "name": "occupation", "type": "string", "default": "FreeLancer" },  // Add default value
     { "name": "mobilenumber", "type": "string" },
     { "name": "socialsecuritynumber", "type": "string" },
     { "name": "taxnumber", "type": "string" }
