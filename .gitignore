@@ -36,3 +36,9 @@ Thumbs.db
 *.gz
 
 *.txt
+
+*.exe
+
+*.io
+
+*.backup
