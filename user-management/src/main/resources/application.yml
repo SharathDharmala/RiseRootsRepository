@@ -23,6 +23,13 @@ eureka:
     fetch-registry: true
 
 spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/SharathDharmala/RiseRootsRepository.git
+          default-label: master  # Branch name
+          search-paths: config  # Folder inside repo
   mvc:
     cors:
       allowed-origins: "http://localhost:3000"

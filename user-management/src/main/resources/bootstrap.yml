@@ -1,5 +1,6 @@
 spring:
   application:
-    name: riseroots-dbconfig  # This should match the config file name in Config Server
-  config:
-    import: "optional:configserver:http://localhost:8888"
+    name: user-management
+  cloud:
+    config:
+      uri: http://localhost:8071  # New port for Config Server
