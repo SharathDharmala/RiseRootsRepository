@@ -1,0 +1,46 @@
+{
+  "info": {
+    "name": "Order Management API",
+    "_postman_id": "riseroots-collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_type\": \"IN\",\n  \"order_price\": 300.00,\n  \"products\": [\n    {\n      \"product_id\": 1,\n      \"quantity\": 2,\n      \"price\": 100.00\n    },\n    {\n      \"product_id\": 2,\n      \"quantity\": 1,\n      \"price\": 100.00\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8074/api/orders/dfsubmit",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8074",
+          "path": ["api", "orders", "dfsubmit"]
+        }
+      }
+    },
+    {
+      "name": "Get All Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8074/api/orders",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8074",
+          "path": ["api", "orders"]
+        }
+      }
+    }
+  ]
+}

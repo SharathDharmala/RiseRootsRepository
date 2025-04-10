@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [selectedItem, setSelectedItem] = useState('');
   const [quantity, setQuantity] = useState('');
   const [orderList, setOrderList] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [activeTab, setActiveTab] = useState(0); // Track active tab
+  const [activeTab, setActiveTab] = useState(0);
+  const [items, setItems] = useState([]);
+  const [successMessage, setSuccessMessage] = useState('');
+
   const tabs = [
     { name: 'Real Estate', content: 'Explore our available properties.' },
     { name: 'Dry Fruits Order', content: 'Order your favorite dry fruits.' }
   ];
 
-  // Dry fruits with descriptions
-  const items = [
-    { name: "Almonds", description: "Almonds are a rich source of vitamins and minerals, including Vitamin E, magnesium, and healthy fats." },
-    { name: "Cashews", description: "Cashews are a great source of protein and healthy fats, providing a creamy texture to snacks and meals." },
-    { name: "Pistachios", description: "Pistachios are packed with antioxidants and healthy fats, and make for a great snack or ingredient in recipes." }
-  ];
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch("http://localhost:8074/api/products/dfproducts");
+        const data = await response.json();
+        console.log(data);
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    };
+
+    fetchItems();
+  }, []);
 
   const handleAddItem = () => {
     if (!selectedItem || !quantity) {
@@ -24,26 +35,42 @@ function App() {
       return;
     }
 
-    const newOrder = { item: selectedItem, quantity };
-    setOrderList([...orderList, newOrder]);
+    const selectedProduct = items.find(item => item.productName === selectedItem);
+    const newOrder = {
+      productId: selectedProduct?.productId,
+      productName: selectedProduct?.productName,
+      quantity,
+      remarks: selectedProduct?.remarks,
+      price_per_gram_inr: selectedProduct?.price_per_gram_inr
+    };
 
-    // Reset the inputs
+    setOrderList([...orderList, newOrder]);
     setSelectedItem('');
     setQuantity('');
   };
 
   const handleSubmitOrder = async () => {
-    console.log("Submitting order with:", orderList); // Check what values are being sent
-
     try {
       setIsSubmitting(true);
 
-      const response = await fetch("http://localhost:8080/api/dryfruitsorder/dfSubmit", {
+      console.log("Submitting order:", orderList);
+
+      const orderRequest = {
+        orderType: "IN",
+        orderedProducts: orderList.map(order => ({
+          productId: order.productId,
+          quantity: order.quantity,
+          remarks: order.remarks,
+          quantity_price_inr: order.price_per_gram_inr * order.quantity
+        }))
+      };
+
+      const response = await fetch("http://localhost:8074/api/orders/dfsubmit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(orderList)
+        body: JSON.stringify(orderRequest)
       });
 
       if (!response.ok) {
@@ -52,10 +79,9 @@ function App() {
 
       const data = await response.json();
       console.log("Order submitted:", data);
-
-      // Reset order list after submission
       setOrderList([]);
-
+      setSuccessMessage("✅ Order has been submitted successfully!");
+      setTimeout(() => setSuccessMessage(''), 4000);
     } catch (error) {
       console.error("Error submitting order:", error);
     } finally {
@@ -134,7 +160,6 @@ function App() {
           <h2>{tabs[activeTab].name}</h2>
           <p>{tabs[activeTab].content}</p>
 
-          {/* Dry Fruits Order Tab */}
           {activeTab === 1 && (
             <>
               <div className="order-section">
@@ -151,8 +176,8 @@ function App() {
                 >
                   <option value="">Select Item</option>
                   {items.map((item, index) => (
-                    <option key={index} value={item.name}>
-                      {item.name}
+                    <option key={index} value={item.productName}>
+                      {item.productName}
                     </option>
                   ))}
                 </select>
@@ -189,22 +214,31 @@ function App() {
                 <div style={{ marginTop: '20px' }}>
                   <h3>Item Description:</h3>
                   <p>
-                    {items.find(item => item.name === selectedItem)?.description}
+                    Remarks: {items.find(item => item.productName === selectedItem)?.remarks} — ₹
+                    {items.find(item => item.productName === selectedItem)?.price_per_gram_inr}
                   </p>
+                </div>
+              )}
+
+              {successMessage && (
+                <div style={{ marginTop: '15px', color: 'green', fontWeight: 'bold' }}>
+                  {successMessage}
                 </div>
               )}
 
               <ul style={{ listStyleType: 'none', padding: '0' }}>
                 {orderList.map((order, index) => (
                   <li key={index} style={{ margin: '5px 0', fontSize: '16px' }}>
-                    {order.item} - {order.quantity} grams
+                    <strong>{order.productName}</strong> - {order.quantity} grams
+                    <br />
+                    <small>Remarks: {order.remarks}, ₹{order.price_per_gram_inr}/gm</small>
                   </li>
                 ))}
               </ul>
 
               <button
                 onClick={handleSubmitOrder}
-                disabled={orderList.length === 0 || isSubmitting} // Disable if submitting
+                disabled={orderList.length === 0 || isSubmitting}
                 style={{
                   padding: '10px 20px',
                   borderRadius: '5px',
@@ -220,11 +254,9 @@ function App() {
             </>
           )}
 
-          {/* Real Estate Tab */}
           {activeTab === 0 && (
             <div style={{ fontSize: '18px', paddingTop: '20px' }}>
               <p>Explore our available real estate properties:</p>
-              {/* Real estate items can be listed here */}
               <ul>
                 <li>Property 1: Location, Size, Price</li>
                 <li>Property 2: Location, Size, Price</li>

@@ -1,5 +1,5 @@
 server:
-  port: 8071
+  port: 8074
   api:
     base-path: /api/user
 
@@ -19,7 +19,7 @@ spring:
       allow-credentials: true
 
   application:
-    name: user-management-service
+    name: order-management-service
 
   flyway:
     enabled: true
@@ -36,12 +36,6 @@ spring:
         show_sql: true
         use_sql_comments: true
         ddl-auto: update
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://sharath0205.eu.auth0.com/
 
   datasource:
     url: jdbc:postgresql://localhost:5432/riseroots
