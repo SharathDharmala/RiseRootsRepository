@@ -1,0 +1,86 @@
+{
+  "LuxuryApartments": [
+    {
+      "id": "Apartment1",
+      "name": "CultAir Apartments",
+      "price": "₹1.5 Cr",
+      "location": "విశాఖపట్నం, ఆంధ్రప్రదేశ్ - ఎయిర్‌పోర్టుకు దగ్గరలో",
+      "size": "2500 sqft",
+      "images": [
+        "/images/Apartment1/Apartment11.jpeg",
+        "/images/Apartment1/Apartment12.jpeg",
+        "/images/Apartment1/Apartment13.jpeg",
+        "/images/Apartment1/Apartment14.jpeg"
+      ]
+    },
+    {
+      "id": "Apartment2",
+      "name": "RiseRoots Apartments",
+      "price": "₹2.0 Cr",
+      "location": "విశాఖపట్నం, ఆంధ్రప్రదేశ్ - సిటీ సెంటర్‌కు దగ్గరలో",
+      "size": "3000 sqft",
+      "images": [
+        "/images/Apartment2/Apartment21.jpg",
+        "/images/Apartment2/Apartment22.jpg",
+        "/images/Apartment2/Apartment23.jpg",
+        "/images/Apartment2/Apartment24.jpg"
+      ]
+    }
+  ],
+  "Villas": [
+    {
+      "id": "Villa1",
+      "name": "Golden Beach Villas",
+      "price": "₹5.0 Cr",
+      "location": "విశాఖపట్నం, ఆంధ్రప్రదేశ్ - బీచ్ వ్యూ",
+      "size": "5000 sqft",
+      "images": [
+        "/images/Villa1/Villa11.jpg",
+        "/images/Villa1/Villa12.jpeg",
+        "/images/Villa1/Villa13.jpeg",
+        "/images/Villa1/Villa14.jpeg"
+      ]
+    },
+    {
+      "id": "Villa2",
+      "name": "RR Housing",
+      "price": "₹7.5 Cr",
+      "location": "బెంగళూరు, కర్ణాటక - హౌసింగ్ సొసైటీకి దగ్గరలో",
+      "size": "7000 sqft",
+      "images": [
+        "/images/Villa2/Villa21.jpeg",
+        "/images/Villa2/Villa22.jpg",
+        "/images/Villa2/Villa23.jpg",
+        "/images/Villa2/Villa24.jpg"
+      ]
+    }
+  ],
+  "Plots": [
+    {
+      "id": "Plot1",
+      "name": "RiseRoots CultPlots",
+      "price": "₹5.0 Cr",
+      "location": "విశాఖపట్నం, ఆంధ్రప్రదేశ్ - బీచ్ దగ్గర",
+      "size": "5000 sqft",
+      "images": [
+        "/images/Plot1/plot11.jpeg",
+        "/images/Plot1/plot12.jpeg",
+        "/images/Plot1/plot13.jpeg",
+        "/images/Plot1/plot14.jpeg"
+      ]
+    },
+	  {
+	  "id": "Plot2",
+	  "name": "Mallika Promotors",
+	  "price": "₹7.5 Cr",
+	  "location": "భోగాపురం VMRDA ఆమోదించబడిన ప్లాట్లు. ఆఫర్ ధర: ₹7000/- ప్రతి గజానికి. పరిమిత ప్లాట్లు మాత్రమే అందుబాటులో ఉన్నాయి. 80% మార్ట్గేజ్ లోన్. భోగాపురం హైవే నుండి 5 కిలోమీటర్లు. అంతర్జాతీయ విమానాశ్రయం 3 కిలోమీటర్లు. ముక్కాం బీచ్ దగ్గర. మిరాకిల్ సాఫ్ట్‌వేర్ సమీపంలో.",
+	  "size": "7000 sqft",
+	  "images": [
+	    "/images/Plot2/plot21.jpeg",
+	    "/images/Plot2/plot22.jpeg",
+	    "/images/Plot2/plot23.jpeg",
+	    "/images/Plot2/plot24.jpeg"
+	  ]
+	}
+  ]
+}
